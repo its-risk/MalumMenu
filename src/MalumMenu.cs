@@ -16,7 +16,7 @@ public partial class MalumMenu : BasePlugin
 {
     public Harmony Harmony { get; } = new(Id);
     public static string malumVersion = "2.4.2";
-    public static List<string> supportedAU = new List<string> { "2024.9.4" };
+    public static List<string> supportedAU = new List<string> { "2025.3.25", "2025.3.31", "2025.4.20" };
     public static MenuUI menuUI;
     // public static ConsoleUI consoleUI;
     public static ConfigEntry<string> menuKeybind;
@@ -27,6 +27,13 @@ public partial class MalumMenu : BasePlugin
     public static ConfigEntry<string> guestFriendCode;
     public static ConfigEntry<bool> guestMode;
     public static ConfigEntry<bool> noTelemetry;
+    public static ConfigEntry<bool> freeCosmetics;
+    public static ConfigEntry<bool> avoidBans;
+    public static ConfigEntry<bool> unlockFeatures;
+    public static ConfigEntry<bool> teleportMenuToCursor;
+    public static ConfigEntry<bool> disableWatermark;
+
+    public static bool warningShown = false;
 
     public override void Load()
     {
@@ -42,15 +49,17 @@ public partial class MalumMenu : BasePlugin
                                 "",
                                 "A custom color for your MalumMenu GUI. Supports html color codes");
 
-        guestMode = Config.Bind("MalumMenu.GuestMode",
-                                "GuestMode",
-                                false,
-                                "When enabled, a new guest account will generate every time you start the game, allowing you to bypass account bans and PUID detection");
+        //guestMode = Config.Bind("MalumMenu.GuestMode",
+        //                        "GuestMode",
+        //                        false,
+        //                        "When enabled, a new guest account will generate every time you start the game, allowing you to bypass account bans and PUID detection");
+        // GuestMode is patched in the latest versions of AU
         
-        guestFriendCode = Config.Bind("MalumMenu.GuestMode",
-                                "FriendName",
-                                "",
-                                "The username that will be used when setting a friend code for your guest account. IMPORTANT: Can only be used with GuestMode, needs to be ≤ 10 characters, and cannot include special characters/discriminator (#1234)");
+        //guestFriendCode = Config.Bind("MalumMenu.GuestMode",
+        //                        "FriendName",
+        //                        "",
+        //                        "The username that will be used when setting a friend code for your guest account. IMPORTANT: Can only be used with GuestMode, needs to be ≤ 10 characters, and cannot include special characters/discriminator (#1234)");
+        // GuestMode is patched in the latest versions of AU
         
         spoofLevel = Config.Bind("MalumMenu.Spoofing",
                                 "Level",
@@ -72,7 +81,36 @@ public partial class MalumMenu : BasePlugin
                                 true,
                                 "When enabled it will stop Among Us from collecting analytics of your games and sending them to Innersloth using Unity Analytics");
 
+        freeCosmetics = Config.Bind("MalumMenu.FreeCosmetics",
+                               "FreeCosmetics",
+                               true,
+                               "When enabled it gives you access to all of the game's cosmetics for free");
 
+        avoidBans = Config.Bind("MalumMenu.AvoidBans",
+                              "AvoidBans",
+                              true,
+                              "When enabled it removes the penalty you receive when disconnecting from games early");
+
+        unlockFeatures = Config.Bind("MalumMenu.UnlockFeatures",
+                              "UnlockFeatures",
+                              true,
+                              "When enabled it will Unlocks many of the game's special features automatically, including: Freechat, Friend list, Custom name and Online gameplay");
+
+        teleportMenuToCursor = Config.Bind("MalumMenu.Sigma",
+                              "Sigma",
+                              true,
+                              "When enabled it will open the menu next to your cursor");
+        
+        disableWatermark = Config.Bind("MalumMenu.Sigma",
+                              "Sigma",
+                              false,
+                              "When enabled it will disable the watermark at the bottom of the screen");
+
+        CheatToggles.unlockFeatures = unlockFeatures.Value;
+        CheatToggles.freeCosmetics = freeCosmetics.Value;
+        CheatToggles.avoidBans = avoidBans.Value;
+        CheatToggles.teleportMenuToCursor = teleportMenuToCursor.Value;
+        CheatToggles.disableWatermark = disableWatermark.Value;
 
         Harmony.PatchAll();
         
@@ -90,7 +128,7 @@ public partial class MalumMenu : BasePlugin
 
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, _) =>
         {
-            if (scene.name == "MainMenu")
+            if (scene.name == "MainMenu" && !warningShown)
             {
                 ModManager.Instance.ShowModStamp(); // Required by InnerSloth Modding Policy
 
@@ -98,6 +136,8 @@ public partial class MalumMenu : BasePlugin
                 if (!supportedAU.Contains(Application.version)){
                     Utils.showPopup("\nThis version of MalumMenu and this version of Among Us are incompatible\n\nInstall the right version to avoid problems");
                 }
+
+                warningShown = true; // Make sure the warning only shows up once
             }
         }));
     }

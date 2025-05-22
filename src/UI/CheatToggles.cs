@@ -85,9 +85,11 @@ namespace MalumMenu
         //public static bool voteImmune;
 
         //Passive
-        public static bool unlockFeatures = true;
-        public static bool freeCosmetics = true;
-        public static bool avoidBans = true;
+        public static bool unlockFeatures;
+        public static bool freeCosmetics;
+        public static bool avoidBans;
+        public static bool teleportMenuToCursor;
+        public static bool disableWatermark;
 
         public static void DisablePPMCheats(string variableToKeep)
         {

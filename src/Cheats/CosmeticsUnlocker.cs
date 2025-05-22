@@ -4,7 +4,7 @@ public static class CosmeticsUnlocker
     public static void unlockCosmetics(HatManager hatManager){
         if (CheatToggles.freeCosmetics){
             foreach(var bundle in hatManager.allBundles){ //Bundles
-            bundle.Free = true;
+                bundle.Free = true;
             }
 
             foreach(var featuredBundle in hatManager.allFeaturedBundles){ //Featured Bundles

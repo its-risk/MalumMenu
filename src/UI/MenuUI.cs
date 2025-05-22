@@ -139,6 +139,8 @@ public class MenuUI : MonoBehaviour
             new ToggleInfo(" Free Cosmetics", () => CheatToggles.freeCosmetics, x => CheatToggles.freeCosmetics = x),
             new ToggleInfo(" Avoid Penalties", () => CheatToggles.avoidBans, x => CheatToggles.avoidBans = x),
             new ToggleInfo(" Unlock Extra Features", () => CheatToggles.unlockFeatures, x => CheatToggles.unlockFeatures = x),
+            new ToggleInfo(" Open Next To Cursor", () => CheatToggles.teleportMenuToCursor, x => CheatToggles.teleportMenuToCursor = x),
+            new ToggleInfo(" Disable Watermark", () => CheatToggles.disableWatermark, x => CheatToggles.disableWatermark = x),
         }, new List<SubmenuInfo>()));
     }
 
@@ -150,12 +152,15 @@ public class MenuUI : MonoBehaviour
             isGUIActive = !isGUIActive;
 
             //Also teleport the window to the mouse for immediate use
-            Vector2 mousePosition = Input.mousePosition;
-            windowRect.position = new Vector2(mousePosition.x, Screen.height - mousePosition.y);
+            if (CheatToggles.teleportMenuToCursor) { // nuh uh
+                Vector2 mousePosition = Input.mousePosition;
+                windowRect.position = new Vector2(mousePosition.x, Screen.height - mousePosition.y);
+            }
         }
 
         //Passive cheats are always on to avoid problems
-        CheatToggles.unlockFeatures = CheatToggles.freeCosmetics = CheatToggles.avoidBans = true;
+        //CheatToggles.unlockFeatures = CheatToggles.freeCosmetics = CheatToggles.avoidBans = true;
+        // nuh uh, thanks to Baumdc for enabling/disabling passives PR
 
         if(!Utils.isPlayer){
             CheatToggles.changeRole = CheatToggles.killAll = CheatToggles.telekillPlayer = CheatToggles.killAllCrew = CheatToggles.killAllImps = CheatToggles.teleportCursor = CheatToggles.teleportPlayer = CheatToggles.spectate = CheatToggles.freecam = CheatToggles.killPlayer = false;

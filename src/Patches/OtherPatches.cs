@@ -3,6 +3,7 @@ using AmongUs.Data;
 using UnityEngine;
 using System;
 using System.Security.Cryptography;
+using AmongUs.Data.Player;
 
 namespace MalumMenu;
 
@@ -102,6 +103,8 @@ public static class VersionShower_Start
     // Postfix patch of VersionShower.Start to show MalumMenu version
     public static void Postfix(VersionShower __instance)
     {
+        if (CheatToggles.disableWatermark) return;
+        
         if (MalumMenu.supportedAU.Contains(Application.version)){ // Checks if Among Us version is supported
 
             __instance.text.text =  $"MalumMenu v{MalumMenu.malumVersion} (v{Application.version})"; // Supported
@@ -120,6 +123,8 @@ public static class PingTracker_Update
     // Postfix patch of PingTracker.Update to show mod name & ping
     public static void Postfix(PingTracker __instance)
     {
+        if (CheatToggles.disableWatermark) return;
+
         __instance.text.alignment = TMPro.TextAlignmentOptions.Center;
 
         if (AmongUsClient.Instance.IsGameStarted){
@@ -146,16 +151,16 @@ public static class HatManager_Initialize
     }
 }
 
-[HarmonyPatch(typeof(StatsManager), nameof(StatsManager.BanMinutesLeft), MethodType.Getter)]
-public static class StatsManager_BanMinutesLeft_Getter
+[HarmonyPatch(typeof(PlayerBanData), nameof(PlayerBanData.BanMinutesLeft), MethodType.Getter)]
+public static class PlayerBanData_BanMinutesLeft_Getter
 {
-    // Prefix patch of Getter method for StatsManager.BanMinutesLeft to remove disconnect penalty
-    public static void Postfix(StatsManager __instance, ref int __result)
+    // Prefix patch of Getter method for PlayerBanData.BanMinutesLeft to remove disconnect penalty
+    // Thanks to Astral and JELollis for this fix
+    public static void Postfix(PlayerBanData __instance, ref int __result)
     {
-        if (CheatToggles.avoidBans){
-            __instance.BanPoints = 0f; // Removes all BanPoints
-            __result = 0; // Removes all BanMinutes
-        }
+        if (!CheatToggles.avoidBans) return;
+        __instance.BanPoints = 0f; // Removes all BanPoints
+        __result = 0; // Removes all BanMinutes
     }
 }
 

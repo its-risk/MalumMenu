@@ -21,27 +21,33 @@ public static class PlayerControl_CmdCheckMurder
     public static bool Prefix(PlayerControl __instance, PlayerControl target){
 
         if (Utils.isLobby){
-            HudManager.Instance.Notifier.AddDisconnectMessage("Killing in lobby disabled for being too buggy");
+            //HudManager.Instance.Notifier.AddDisconnectMessage("Killing in lobby disabled for being too buggy");
+            HudManager.Instance.Notifier.AddDisconnectMessage("Killing in lobby is detected by IS AntiCheat");
             return false;
         }
 
         // Direct kill RPC should only be used when absolutely necessary as to avoid detection from anticheat mods
-        if (CheatToggles.killAnyone || CheatToggles.zeroKillCd || Utils.isVanished(__instance.Data) || Utils.isMeeting || (MalumPPMCheats.oldRole != null && !Utils.getBehaviourByRoleType((AmongUs.GameOptions.RoleTypes)MalumPPMCheats.oldRole).IsImpostor)){
-            if (!__instance.Data.Role.IsValidTarget(target.Data))
-            {
-                return true;
-            }
+        //if (CheatToggles.killAnyone || CheatToggles.zeroKillCd || Utils.isVanished(__instance.Data) || Utils.isMeeting || (MalumPPMCheats.oldRole != null && !Utils.getBehaviourByRoleType((AmongUs.GameOptions.RoleTypes)MalumPPMCheats.oldRole).IsImpostor)){
+        //    if (!__instance.Data.Role.IsValidTarget(target.Data))
+        //    {
+        //        return true;
+        //    }
+        //
+        //    if (target.protectedByGuardianId > -1 && !CheatToggles.killAnyone){
+        //        return true;
+        //    }
+        //    
+        //    Utils.murderPlayer(target, MurderResultFlags.Succeeded);
+        //
+        //    return false;
+        //}
 
-            if (target.protectedByGuardianId > -1 && !CheatToggles.killAnyone){
-                return true;
-            }
-            
-            Utils.murderPlayer(target, MurderResultFlags.Succeeded);
-
-            return false;
+        if (AmongUsClient.Instance.AmHost)
+        {
+            Utils.murderPlayer(target, MurderResultFlags.Succeeded) // only use force murder when you are hosting
         }
 
-        return true;
+        return !AmongUsClient.Instance.AmHost; // otherwise use regular cmd check murder
 
     }
 }
