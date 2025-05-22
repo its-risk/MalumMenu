@@ -44,7 +44,7 @@ public static class PlayerControl_CmdCheckMurder
 
         if (AmongUsClient.Instance.AmHost)
         {
-            Utils.murderPlayer(target, MurderResultFlags.Succeeded) // only use force murder when you are hosting
+            Utils.murderPlayer(target, MurderResultFlags.Succeeded); // only use force murder when you are hosting
         }
 
         return !AmongUsClient.Instance.AmHost; // otherwise use regular cmd check murder
