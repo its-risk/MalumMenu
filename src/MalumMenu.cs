@@ -33,8 +33,6 @@ public partial class MalumMenu : BasePlugin
     public static ConfigEntry<bool> teleportMenuToCursor;
     public static ConfigEntry<bool> disableWatermark;
 
-    public static bool warningShown = false;
-
     public override void Load()
     {
 
@@ -136,8 +134,6 @@ public partial class MalumMenu : BasePlugin
                 if (!supportedAU.Contains(Application.version)){
                     Utils.showPopup("\nThis version of MalumMenu and this version of Among Us are incompatible\n\nInstall the right version to avoid problems");
                 }
-
-                warningShown = true; // Make sure the warning only shows up once
             }
         }));
     }
