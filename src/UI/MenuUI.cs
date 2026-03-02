@@ -408,6 +408,7 @@ public class MenuUI : MonoBehaviour
             "Roles" => 4,
             "Ship" => 1,
             "Chat" => 1,
+            "Console" => 1,
             "Host-Only" => 2,
             "Passive" => 1,
             "Animations" => 1,
