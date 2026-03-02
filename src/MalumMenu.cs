@@ -37,6 +37,7 @@ public partial class MalumMenu : BasePlugin
     public static ConfigEntry<bool> noTelemetry;
     public static ConfigEntry<string> guestFriendCode;
     public static ConfigEntry<bool> guestMode;
+    public static ConfigEntry<bool> autoLoadProfile;
 
     public override void Load()
     {
@@ -57,6 +58,11 @@ public partial class MalumMenu : BasePlugin
                                 "OpenOnMouse",
                                 true,
                                 "When enabled, the MalumMenu GUI will always be opened at the current mouse position");
+
+        autoLoadProfile = Config.Bind("MalumMenu.Profile",
+                                "AutoLoadProfile",
+                                false,
+                                "When enabled, your saved keybind and toggle profile will be automatically loaded at game startup");
 
         // GuestMode config settings are commented out as the cheats are broken in latest updates
 
@@ -111,6 +117,12 @@ public partial class MalumMenu : BasePlugin
             Analytics.enabled = false;
             Analytics.deviceStatsEnabled = false;
             PerformanceReporting.enabled = false;
+        }
+
+        // Load profile on start
+        if (autoLoadProfile.Value)
+        {
+            CheatToggles.LoadTogglesFromProfile();
         }
 
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, _) =>
