@@ -28,7 +28,7 @@ public class RolesUI : MonoBehaviour
 
             GUILayout.BeginHorizontal();
 
-            GUILayout.Label($"<color=#{ColorUtility.ToHtmlStringRGB(player.Data.Color)}>{player.name}</color>", GUILayout.Width(140f));
+            GUILayout.Label($"<color=#{ColorUtility.ToHtmlStringRGB(player.Data.Color)}>{player.Data.PlayerName}</color>", GUILayout.Width(140f));
             GUILayout.BeginHorizontal();
             GUILayout.Label($"{CheatToggles.forcedRole}");
             GUILayout.FlexibleSpace();
