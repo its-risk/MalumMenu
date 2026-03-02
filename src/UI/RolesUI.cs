@@ -9,7 +9,7 @@ public class RolesUI : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!CheatToggles.showRolesMenu) return;
+        if (!CheatToggles.showRolesMenu || !MenuUI.isGUIActive || MenuUI.isPanicked) return;
 
         UIHelpers.ApplyUIColor();
 
