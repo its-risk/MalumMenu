@@ -38,6 +38,16 @@ public static class TextBoxTMP_IsCharAllowed
     // Prefix patch of TextBoxTMP.IsCharAllowed to allow all characters
     public static bool Prefix(TextBoxTMP __instance, ref bool __result)
     {
+        // If user is writing through IME composition, then always allow the inputted characters
+        // Fixes issues for users of CJK languages
+
+        string compositionString = Input.compositionString;
+        if (compositionString.Length > 0)
+        {
+            __result = true;
+            return false;
+        }
+
         string inputString = Input.inputString;
 
         if (inputString.Length == 0) return true;
