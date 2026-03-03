@@ -90,7 +90,7 @@ public static class ChatController_Update
 
         if (CheatToggles.chatJailbreak)
 		{
-            __instance.freeChatField.textArea.characterLimit = 119; // Longer message length when chatJailbreak is enabled
+            __instance.freeChatField.textArea.characterLimit = 120; // Longer message length when chatJailbreak is enabled
         }
 		else
 		{
