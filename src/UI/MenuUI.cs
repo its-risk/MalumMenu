@@ -45,7 +45,6 @@ public class MenuUI : MonoBehaviour
                 new ToggleInfo(" No Shadows", () => CheatToggles.fullBright, x => CheatToggles.fullBright = x),
                 new ToggleInfo(" Task Arrows", () => CheatToggles.taskArrows, x => CheatToggles.taskArrows = x),
                 new ToggleInfo(" Reveal Votes", () => CheatToggles.revealVotes, x => CheatToggles.revealVotes = x),
-                new ToggleInfo(" Enable Chat", () => CheatToggles.alwaysChat, x => CheatToggles.alwaysChat = x), // Temporarily in ESP group
                 new ToggleInfo(" Show Lobby Info", () => CheatToggles.showLobbyInfo, x => CheatToggles.showLobbyInfo = x),
             },
             new List<SubmenuInfo> {
@@ -161,13 +160,13 @@ public class MenuUI : MonoBehaviour
             }
         ));
 
-        // groups.Add(new GroupInfo("Chat", false,
-        //     new List<ToggleInfo>() {
-        //         new ToggleInfo(" Enable Chat", () => CheatToggles.alwaysChat, x => CheatToggles.alwaysChat = x),
-        //         new ToggleInfo(" Unlock Textbox", () => CheatToggles.chatJailbreak, x => CheatToggles.chatJailbreak = x)
-        //     },
-        //     new List<SubmenuInfo>()
-        // ));
+        groups.Add(new GroupInfo("Chat", false,
+            new List<ToggleInfo>() {
+                new ToggleInfo(" Enable Chat", () => CheatToggles.alwaysChat, x => CheatToggles.alwaysChat = x),
+                new ToggleInfo(" Unlock Textbox", () => CheatToggles.chatJailbreak, x => CheatToggles.chatJailbreak = x)
+            },
+            new List<SubmenuInfo>()
+        ));
 
         groups.Add(new GroupInfo("Console", false,
             new List<ToggleInfo>() {
@@ -404,7 +403,7 @@ public class MenuUI : MonoBehaviour
         return groups[groupId].name switch
         {
             "Player" => 1,
-            "ESP" => 1, //2, Temporarily set while alwaysChat is in ESP group
+            "ESP" => 1,
             "Roles" => 4,
             "Ship" => 1,
             "Chat" => 1,
