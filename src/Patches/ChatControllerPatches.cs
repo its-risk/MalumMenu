@@ -83,9 +83,9 @@ public static class ChatController_Update
     // Postfix patch of FreeChatInputField.OnFieldChanged to unlock extra chat capabilities
     public static void Postfix(ChatController __instance)
     {
-        __instance.freeChatField.textArea.allowAllCharacters = CheatToggles.chatJailbreak; // Not really used by the game's code, but I include it anyway
-        __instance.freeChatField.textArea.AllowSymbols = true; // Allow sending certain symbols
-        __instance.freeChatField.textArea.AllowEmail = CheatToggles.chatJailbreak; // Allow sending email addresses when chatJailbreak is enabled
+        //__instance.freeChatField.textArea.allowAllCharacters = CheatToggles.chatJailbreak; // Not really used by the game's code, but I include it anyway
+        //__instance.freeChatField.textArea.AllowSymbols = true; // Allow sending certain symbols
+        //__instance.freeChatField.textArea.AllowEmail = CheatToggles.chatJailbreak; // Allow sending email addresses when chatJailbreak is enabled
         //__instance.freeChatField.textArea.AllowPaste = CheatToggles.chatJailbreak; // Allow pasting from clipboard in chat when chatJailbreak is enabled
 
         if (CheatToggles.chatJailbreak)

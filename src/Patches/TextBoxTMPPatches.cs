@@ -33,20 +33,64 @@ public static class TextBoxTMP_Update
 [HarmonyPatch(typeof(TextBoxTMP), nameof(TextBoxTMP.IsCharAllowed))]
 public static class TextBoxTMP_IsCharAllowed
 {
+    private static int _currentCharPos = 0;
+
     // Prefix patch of TextBoxTMP.IsCharAllowed to allow all characters
-    public static bool Prefix(TextBoxTMP __instance, char i, ref bool __result)
+    public static bool Prefix(TextBoxTMP __instance, ref bool __result)
     {
-        if (!CheatToggles.chatJailbreak) return true;
+        string inputString = Input.inputString;
 
-        HashSet<char> blockedSymbols = new() { '\b', '\r' };
+        if (inputString.Length == 0) return true;
 
-        if (blockedSymbols.Contains(i))
+        string currentText = __instance.text ?? string.Empty;
+
+        int caretPos = Mathf.Clamp(__instance.caretPos, 0, currentText.Length);
+
+        string text = currentText.Insert(caretPos, inputString);
+
+        char currentChar = text[_currentCharPos];
+
+        if (_currentCharPos == text.Length - 1)
         {
-            __result = false;
-            return false;
+            _currentCharPos = 0;
+        }
+        else
+        {
+            _currentCharPos++;
         }
 
-        __result = true;
+        if (CheatToggles.chatJailbreak)
+        {
+            HashSet<char> blockedSymbols = new() { '\b', '\r', '>', '<' };
+
+            if (blockedSymbols.Contains(currentChar))
+            {
+                __result = false;
+                return false;
+            }
+
+            __result = true;
+        }
+        else
+        {
+            if (__instance.IpMode)
+            {
+                __result = (currentChar >= '0' && currentChar <= '9') || currentChar == '.';
+                return false;
+            }
+
+            __result = currentChar == ' ' ||
+            (currentChar >= 'A' && currentChar <= 'Z') ||
+            (currentChar >= 'a' && currentChar <= 'z') ||
+            (currentChar >= '0' && currentChar <= '9') ||
+            (currentChar >= 'À' && currentChar <= 'ÿ') ||
+            (currentChar >= 'Ѐ' && currentChar <= 'џ') ||
+            (currentChar >= '぀' && currentChar <= '㆟') ||
+            (currentChar >= 'ⱡ' && currentChar <= '힣') ||
+            (__instance.AllowSymbols && TextBoxTMP.SymbolChars.Contains(currentChar)) ||
+            (__instance.AllowEmail && TextBoxTMP.EmailChars.Contains(currentChar));
+        }
+
         return false;
     }
 }
