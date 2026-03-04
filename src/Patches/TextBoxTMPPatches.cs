@@ -48,6 +48,9 @@ public static class TextBoxTMP_IsCharAllowed
             return false;
         }
 
+        // Reconstruct the inputted string being processed by TextBoxTMP.setText
+        // Each individual character in this string is being checked in a foreach loop
+
         string inputString = Input.inputString;
 
         if (inputString.Length == 0) return true;
@@ -58,19 +61,23 @@ public static class TextBoxTMP_IsCharAllowed
 
         string text = currentText.Insert(caretPos, inputString);
 
+        // Get character in string currently being checked by keeping track
+        // of each TextBoxTMP.IsCharAllowed call made within the foreach loop
+
         char currentChar = text[_currentCharPos];
 
         if (_currentCharPos == text.Length - 1)
         {
-            _currentCharPos = 0;
+            _currentCharPos = 0; // Reset position when loop finishes
         }
         else
         {
-            _currentCharPos++;
+            _currentCharPos++; // Increment position to next character in loop
         }
 
-        if (CheatToggles.chatJailbreak)
+        if (CheatToggles.chatJailbreak) // chatJailbreak cheat logic
         {
+            // Blacklisted characters to avoid breaking text input / getting kicked by anticheat
             HashSet<char> blockedSymbols = new() { '\b', '\r', '>', '<' };
 
             if (blockedSymbols.Contains(currentChar))
@@ -81,7 +88,7 @@ public static class TextBoxTMP_IsCharAllowed
 
             __result = true;
         }
-        else
+        else // Normal IsCharAllowed logic
         {
             if (__instance.IpMode)
             {
