@@ -18,10 +18,16 @@ public static class TextBoxTMP_Update
         {
             GUIUtility.systemCopyBuffer = __instance.text;
         }
+
         if (Input.GetKeyDown(KeyCode.V))
         {
+            Utils.isPastingInput = true;
+
             __instance.SetText(__instance.text + GUIUtility.systemCopyBuffer);
+
+            Utils.isPastingInput = false;
         }
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             GUIUtility.systemCopyBuffer = __instance.text;
@@ -51,15 +57,24 @@ public static class TextBoxTMP_IsCharAllowed
         // Reconstruct the inputted string being processed by TextBoxTMP.setText
         // Each individual character in this string is being checked in a foreach loop
 
-        string inputString = Input.inputString;
+        string input;
 
-        if (inputString.Length == 0) return true;
+        if (Utils.isPastingInput)
+        {
+            input = GUIUtility.systemCopyBuffer; // Handle pasted text
+        }
+        else
+        {
+            input = Input.inputString; // Handle normal typing
+        }
+
+        if (input.Length == 0) return true;
 
         string currentText = __instance.text ?? string.Empty;
 
         int caretPos = Mathf.Clamp(__instance.caretPos, 0, currentText.Length);
 
-        string text = currentText.Insert(caretPos, inputString);
+        string text = currentText.Insert(caretPos, input);
 
         // Get character in string currently being checked by keeping track
         // of each TextBoxTMP.IsCharAllowed call made within the foreach loop
