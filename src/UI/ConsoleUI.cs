@@ -27,14 +27,14 @@ public class ConsoleUI : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!CheatToggles.showConsole) return;
+        if (!CheatToggles.showConsole || !MenuUI.isGUIActive || MenuUI.isPanicked) return;
 
         _logStyle ??= new GUIStyle(GUI.skin.label)
         {
             fontSize = 16
         };
 
-        UIHelper.ApplyUIColor();
+        UIHelpers.ApplyUIColor();
 
         _windowRect = GUI.Window(1, _windowRect, (GUI.WindowFunction)ConsoleWindow, "Console");
     }

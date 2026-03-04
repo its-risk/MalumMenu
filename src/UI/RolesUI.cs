@@ -9,9 +9,9 @@ public class RolesUI : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!CheatToggles.showRolesMenu) return;
+        if (!CheatToggles.showRolesMenu || !MenuUI.isGUIActive || MenuUI.isPanicked) return;
 
-        UIHelper.ApplyUIColor();
+        UIHelpers.ApplyUIColor();
 
         _windowRect = GUI.Window(4, _windowRect, (GUI.WindowFunction)RolesWindow, "Assign Roles");
     }
@@ -28,7 +28,7 @@ public class RolesUI : MonoBehaviour
 
             GUILayout.BeginHorizontal();
 
-            GUILayout.Label($"<color=#{ColorUtility.ToHtmlStringRGB(player.Data.Color)}>{player.name}</color>", GUILayout.Width(140f));
+            GUILayout.Label($"<color=#{ColorUtility.ToHtmlStringRGB(player.Data.Color)}>{player.Data.PlayerName}</color>", GUILayout.Width(140f));
             GUILayout.BeginHorizontal();
             GUILayout.Label($"{CheatToggles.forcedRole}");
             GUILayout.FlexibleSpace();

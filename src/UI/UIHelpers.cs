@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MalumMenu;
 
-public static class UIHelper
+public static class UIHelpers
 {
     public static void ApplyUIColor()
     {

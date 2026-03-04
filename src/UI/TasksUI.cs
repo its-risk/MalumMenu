@@ -21,7 +21,7 @@ public class TasksUI : MonoBehaviour
             alignment = TextAnchor.MiddleLeft
         };
 
-        UIHelper.ApplyUIColor();
+        UIHelpers.ApplyUIColor();
 
         _windowRect = GUI.Window(3, _windowRect, (GUI.WindowFunction)TasksWindow, "Tasks");
     }
@@ -38,7 +38,7 @@ public class TasksUI : MonoBehaviour
 
             GUILayout.BeginVertical();
 
-            var nameKey = player.name;
+            var nameKey = player.Data.PlayerName;
             _expandedPlayers.TryGetValue(nameKey, out var expanded);
             var arrow = expanded ? "\u25BC" : "\u25B6"; // ▼ or ▶
 
