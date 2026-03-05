@@ -86,7 +86,22 @@ public static class ChatController_Update
 		{
             __instance.freeChatField.textArea.characterLimit = 100;
         }
+    }
+}
 
+[HarmonyPatch(typeof(ChatController), nameof(ChatController.SendChat))]
+public static class ChatController_SendChat
+{
+    // Postfix patch of ChatController.SendChat to unlock lower chat rate limits
+    public static void Postfix(ChatController __instance)
+    {
+        if (!CheatToggles.chatJailbreak) return;
+
+		if (__instance.timeSinceLastMessage == 0f)
+		{
+			// Decreasing rate limit by 1.1 secs max still avoids anticheat kicks
+			__instance.timeSinceLastMessage += 1.1f;
+		}
     }
 }
 
