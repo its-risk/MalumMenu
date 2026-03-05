@@ -70,7 +70,7 @@ public static class ChatController_AddChat
 [HarmonyPatch(typeof(ChatController), nameof(ChatController.Update))]
 public static class ChatController_Update
 {
-    // Postfix patch of FreeChatInputField.OnFieldChanged to unlock extra chat capabilities
+    // Postfix patch of ChatController.Update to unlock longer message length
     public static void Postfix(ChatController __instance)
     {
         //__instance.freeChatField.textArea.allowAllCharacters = CheatToggles.chatJailbreak; // Not really used by the game's code, but I include it anyway
@@ -80,7 +80,8 @@ public static class ChatController_Update
 
         if (CheatToggles.chatJailbreak)
 		{
-            __instance.freeChatField.textArea.characterLimit = 120; // Longer message length when chatJailbreak is enabled
+			// Increasing max length by 20 chars max still avoids anticheat kicks
+            __instance.freeChatField.textArea.characterLimit = 120;
         }
 		else
 		{
@@ -108,7 +109,7 @@ public static class ChatController_SendChat
 [HarmonyPatch(typeof(ChatController), nameof(ChatController.SendFreeChat))]
 public static class ChatController_SendFreeChat
 {
-    // Prefix patch of ChatController.SendFreeChat to unlock extra chat capabilities
+    // Prefix patch of ChatController.SendFreeChat to allow sending URLs without being censored
     public static bool Prefix(ChatController __instance)
     {
 		// Only works if CheatSettings.chatJailbreak is enabled
