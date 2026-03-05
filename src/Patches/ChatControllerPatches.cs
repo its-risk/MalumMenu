@@ -96,7 +96,7 @@ public static class ChatController_SendChat
     // Postfix patch of ChatController.SendChat to unlock lower chat rate limits
     public static void Postfix(ChatController __instance)
     {
-        if (!CheatToggles.chatJailbreak) return;
+        if (!CheatToggles.lowerRateLimits) return;
 
 		if (__instance.timeSinceLastMessage == 0f)
 		{

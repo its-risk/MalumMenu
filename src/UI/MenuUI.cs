@@ -163,7 +163,9 @@ public class MenuUI : MonoBehaviour
         groups.Add(new GroupInfo("Chat", false,
             new List<ToggleInfo>() {
                 new ToggleInfo(" Enable Chat", () => CheatToggles.alwaysChat, x => CheatToggles.alwaysChat = x),
-                new ToggleInfo(" Unlock Textbox", () => CheatToggles.chatJailbreak, x => CheatToggles.chatJailbreak = x)
+                new ToggleInfo(" Unlock Textbox", () => CheatToggles.chatJailbreak, x => CheatToggles.chatJailbreak = x),
+                new ToggleInfo(" Lower Speed Limits", () => CheatToggles.lowerRateLimits, x => CheatToggles.lowerRateLimits = x),
+                new ToggleInfo(" Unlock Clipboard", () => CheatToggles.unlockClipboard, x => CheatToggles.unlockClipboard = x),
             },
             new List<SubmenuInfo>()
         ));

@@ -10,7 +10,7 @@ public static class TextBoxTMP_Update
     // Postfix patch of TextBoxTMP.Update to allow copying, pasting and cutting text between the chatbox and the device's clipboard
     public static void Postfix(TextBoxTMP __instance)
     {
-        if (!CheatToggles.chatJailbreak || !__instance.hasFocus) return;
+        if (!CheatToggles.unlockClipboard || !__instance.hasFocus) return;
 
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl)) return;
 
