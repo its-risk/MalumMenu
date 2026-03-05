@@ -67,16 +67,6 @@ public static class ChatController_AddChat
     }
 }
 
-[HarmonyPatch(typeof(ChatBubble), nameof(ChatBubble.SetName))]
-public static class ChatBubble_SetName
-{
-    public static void Postfix(ChatBubble __instance)
-	{
-        MalumESP.ChatNametags(__instance);
-    }
-}
-
-
 [HarmonyPatch(typeof(ChatController), nameof(ChatController.Update))]
 public static class ChatController_Update
 {

@@ -49,6 +49,15 @@ public static class FreeChatInputField_UpdateCharCount
     }
 }
 
+[HarmonyPatch(typeof(ChatBubble), nameof(ChatBubble.SetName))]
+public static class ChatBubble_SetName
+{
+    public static void Postfix(ChatBubble __instance)
+	{
+        MalumESP.ChatNametags(__instance);
+    }
+}
+
 [HarmonyPatch(typeof(SystemInfo), nameof(SystemInfo.deviceUniqueIdentifier), MethodType.Getter)]
 public static class SystemInfo_deviceUniqueIdentifier_Getter
 {
