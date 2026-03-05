@@ -92,8 +92,8 @@ public static class TextBoxTMP_IsCharAllowed
 
         if (CheatToggles.chatJailbreak)
         {
-            // Blacklisted characters to avoid breaking text input / getting kicked by anticheat
-            HashSet<char> blockedSymbols = new() { '\b', '\r', '>', '<' };
+            // Blocked characters to avoid breaking text input / getting kicked by anticheat
+            HashSet<char> blockedSymbols = new() { '\b', '\r', '>', '<', '[' };
 
             if (blockedSymbols.Contains(currentChar))
             {
