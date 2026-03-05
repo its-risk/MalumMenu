@@ -90,7 +90,7 @@ public static class TextBoxTMP_IsCharAllowed
             _currentCharPos++; // Increment position to next character in loop
         }
 
-        if (CheatToggles.chatJailbreak)
+        if (CheatToggles.unlockChars)
         {
             // Blocked characters to avoid breaking text input / getting kicked by anticheat
             HashSet<char> blockedSymbols = new() { '\b', '\r', '>', '<', '[' };

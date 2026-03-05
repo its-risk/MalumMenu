@@ -27,8 +27,8 @@ public static class FreeChatInputField_UpdateCharCount
     // Postfix patch of FreeChatInputField.UpdateCharCount to change how charCountText displays
     public static void Postfix(FreeChatInputField __instance)
     {
-        // Only works if CheatToggles.chatJailbreak is enabled
-        if (!CheatToggles.chatJailbreak) return;
+        // Only works if CheatToggles.longerMsgs is enabled
+        if (!CheatToggles.longerMsgs) return;
 
         // Update charCountText to account for longer characterLimit
         int length = __instance.textArea.text.Length;

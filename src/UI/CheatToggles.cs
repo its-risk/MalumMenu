@@ -78,7 +78,9 @@ public struct CheatToggles
 
     // Chat
     public static bool alwaysChat;
-    public static bool chatJailbreak;
+    public static bool unlockChars;
+    public static bool bypassUrlBlock;
+    public static bool longerMsgs;
     public static bool unlockClipboard;
     public static bool lowerRateLimits;
 

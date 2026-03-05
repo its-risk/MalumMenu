@@ -78,7 +78,7 @@ public static class ChatController_Update
         //__instance.freeChatField.textArea.AllowEmail = CheatToggles.chatJailbreak; // Allow sending email addresses when chatJailbreak is enabled
         //__instance.freeChatField.textArea.AllowPaste = CheatToggles.chatJailbreak; // Allow pasting from clipboard in chat when chatJailbreak is enabled
 
-        if (CheatToggles.chatJailbreak)
+        if (CheatToggles.longerMsgs)
 		{
 			// Increasing max length by 20 chars max still avoids anticheat kicks
             __instance.freeChatField.textArea.characterLimit = 120;
@@ -112,8 +112,8 @@ public static class ChatController_SendFreeChat
     // Prefix patch of ChatController.SendFreeChat to allow sending URLs without being censored
     public static bool Prefix(ChatController __instance)
     {
-		// Only works if CheatSettings.chatJailbreak is enabled
-        if (!CheatToggles.chatJailbreak) return true;
+		// Only works if CheatSettings.bypassUrlBlock is enabled
+        if (!CheatToggles.bypassUrlBlock) return true;
 
         string text = __instance.freeChatField.Text;
 
