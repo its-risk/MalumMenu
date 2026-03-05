@@ -100,8 +100,8 @@ public static class ChatController_SendChat
 
 		if (__instance.timeSinceLastMessage == 0f)
 		{
-			// Decreasing rate limit by 1.1 secs max still avoids anticheat kicks
-			__instance.timeSinceLastMessage += 1.1f;
+			// Decreasing rate limit by 1 sec max still avoids anticheat kicks
+			__instance.timeSinceLastMessage += 1f;
 		}
     }
 }
