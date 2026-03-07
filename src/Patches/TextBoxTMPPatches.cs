@@ -54,19 +54,11 @@ public static class TextBoxTMP_IsCharAllowed
             return false;
         }
 
-        // Reconstruct the string being processed by TextBoxTMP.setText
+        // Reconstruct the string being processed by TextBoxTMP.SetText
         // Each individual character in this string is being checked in a foreach loop
 
-        string input;
-
-        if (Utils.isPastingInput)
-        {
-            input = GUIUtility.systemCopyBuffer; // Handle pasted text
-        }
-        else
-        {
-            input = Input.inputString; // Handle normal typing
-        }
+        // If the user pasted text, read from clipboard. Otherwise use typed input
+        var input = Utils.isPastingInput ? GUIUtility.systemCopyBuffer : Input.inputString;
 
         if (input.Length == 0) return true;
 
@@ -90,7 +82,7 @@ public static class TextBoxTMP_IsCharAllowed
             _currentCharPos++; // Increment position to next character in loop
         }
 
-        if (CheatToggles.unlockChars)
+        if (CheatToggles.unlockCharacters)
         {
             // Blocked characters to avoid breaking text input / getting kicked by anticheat
             HashSet<char> blockedSymbols = new() { '\b', '\r', '>', '<', '[' };

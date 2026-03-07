@@ -28,7 +28,7 @@ public static class FreeChatInputField_UpdateCharCount
     public static void Postfix(FreeChatInputField __instance)
     {
         // Only works if CheatToggles.longerMsgs is enabled
-        if (!CheatToggles.longerMsgs) return;
+        if (!CheatToggles.longerMessages) return;
 
         // Update charCountText to account for longer characterLimit
         int length = __instance.textArea.text.Length;

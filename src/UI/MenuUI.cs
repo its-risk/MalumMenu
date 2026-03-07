@@ -163,14 +163,14 @@ public class MenuUI : MonoBehaviour
         groups.Add(new GroupInfo("Chat", false,
             new List<ToggleInfo>() {
                 new ToggleInfo(" Enable Chat", () => CheatToggles.alwaysChat, x => CheatToggles.alwaysChat = x),
-                new ToggleInfo(" Bypass URL Blocks", () => CheatToggles.bypassUrlBlock, x => CheatToggles.bypassUrlBlock = x),
+                new ToggleInfo(" Bypass URL Block", () => CheatToggles.bypassUrlBlock, x => CheatToggles.bypassUrlBlock = x),
                 new ToggleInfo(" Lower Rate Limits", () => CheatToggles.lowerRateLimits, x => CheatToggles.lowerRateLimits = x),
             },
             new List<SubmenuInfo>() {
                 new SubmenuInfo("Textbox", false,
                     new List<ToggleInfo>() {
-                        new ToggleInfo(" Unlock Extra Characters", () => CheatToggles.unlockChars, x => CheatToggles.unlockChars = x),
-                        new ToggleInfo(" Enable Longer Messages", () => CheatToggles.longerMsgs, x => CheatToggles.longerMsgs = x),
+                        new ToggleInfo(" Unlock Extra Characters", () => CheatToggles.unlockCharacters, x => CheatToggles.unlockCharacters = x),
+                        new ToggleInfo(" Allow Longer Messages", () => CheatToggles.longerMessages, x => CheatToggles.longerMessages = x),
                         new ToggleInfo(" Unlock Clipboard", () => CheatToggles.unlockClipboard, x => CheatToggles.unlockClipboard = x)
                     }
                 )
