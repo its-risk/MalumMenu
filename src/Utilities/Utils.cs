@@ -18,6 +18,7 @@ namespace MalumMenu;
 
 public static class Utils
 {
+    public static bool isPastingInput;
     public static ReferenceDataManager ReferenceDataManager = DestroyableSingleton<ReferenceDataManager>.Instance; // Useful for getting full lists of all the Among Us cosmetics IDs
     public static SabotageSystemType SabotageSystem => ShipStatus.Instance.Systems[SystemTypes.Sabotage].Cast<SabotageSystemType>();
     public static bool isShip => ShipStatus.Instance;

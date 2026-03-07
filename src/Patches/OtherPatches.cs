@@ -27,8 +27,8 @@ public static class FreeChatInputField_UpdateCharCount
     // Postfix patch of FreeChatInputField.UpdateCharCount to change how charCountText displays
     public static void Postfix(FreeChatInputField __instance)
     {
-        // Only works if CheatToggles.chatJailbreak is enabled
-        if (!CheatToggles.chatJailbreak) return;
+        // Only works if CheatToggles.longerMsgs is enabled
+        if (!CheatToggles.longerMessages) return;
 
         // Update charCountText to account for longer characterLimit
         int length = __instance.textArea.text.Length;
@@ -38,7 +38,7 @@ public static class FreeChatInputField_UpdateCharCount
         {
             __instance.charCountText.color = Color.black;
         }
-        else if (length < 119) // Under 100%
+        else if (length < 120) // Under 100%
         {
             __instance.charCountText.color = new Color(1f, 1f, 0f, 1f);
         }
@@ -46,6 +46,15 @@ public static class FreeChatInputField_UpdateCharCount
         {
             __instance.charCountText.color = Color.red;
         }
+    }
+}
+
+[HarmonyPatch(typeof(ChatBubble), nameof(ChatBubble.SetName))]
+public static class ChatBubble_SetName
+{
+    public static void Postfix(ChatBubble __instance)
+	{
+        MalumESP.ChatNametags(__instance);
     }
 }
 
