@@ -9,7 +9,6 @@ using System.Reflection;
 using AmongUs.GameOptions;
 using BepInEx;
 using HarmonyLib;
-using Il2CppInterop.Runtime.Injection;
 using Sentry.Internal.Extensions;
 using System.Runtime.CompilerServices;
 using AmongUs.InnerNet.GameDataMessages;
@@ -618,32 +617,15 @@ public static class Utils
         }
     }
 
-    public class PanicCleaner : MonoBehaviour
-    {
-        // Creates a PanicCleaner to unpatch Harmony
-        public static void Create()
-        {
-            ClassInjector.RegisterTypeInIl2Cpp<PanicCleaner>();
-            var go = new GameObject("MalumMenu_PanicCleaner");
-            go.hideFlags = HideFlags.HideAndDontSave;
-            go.AddComponent<PanicCleaner>();
-        }
-
-        // Unpatching Harmony in handled in the next frame after creation
-        // This allows some patches to run for a last time and finish properly
-        private void LateUpdate()
-        {
-            try { Harmony.UnpatchID(MalumMenu.Id); }
-            catch {}
-            Destroy(gameObject);
-        }
-    }
-
     public static void Panic()
     {
-        CheatToggles.DisableAll();
-        ModManager.Instance.ModStamp.enabled = false;
+        MalumMenu.isPanicked = true;
 
-        PanicCleaner.Create();
+        CheatToggles.DisableAll();
+
+        var stamp = ModManager.Instance.ModStamp;
+        if (stamp) stamp.enabled = false;
+
+        try { Harmony.UnpatchID(MalumMenu.Id); } catch { }
     }
 }
