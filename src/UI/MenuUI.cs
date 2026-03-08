@@ -9,7 +9,6 @@ public class MenuUI : MonoBehaviour
     public List<GroupInfo> groups = new List<GroupInfo>();
     private Rect windowRect = new(10, 10, 700, 550);
     public static bool isGUIActive = false;
-    public static bool isPanicked = false;
     public int selectedTab;
 
     // Styles
@@ -320,13 +319,7 @@ public class MenuUI : MonoBehaviour
             ModManager.Instance.ShowModStamp();
         }
 
-        if (CheatToggles.panic)
-        {
-            Utils.Panic();
-            isPanicked = true;
-
-            CheatToggles.panic = false;
-        }
+        if (CheatToggles.panic) Utils.Panic();
 
         // Passive cheats are always on to avoid problems
         // CheatToggles.unlockFeatures = CheatToggles.freeCosmetics = CheatToggles.avoidBans = true;
@@ -361,8 +354,7 @@ public class MenuUI : MonoBehaviour
 
     public void OnGUI()
     {
-
-        if (!isGUIActive || isPanicked) return;
+        if (!isGUIActive || MalumMenu.isPanicked) return;
 
         InitStyles();
 

@@ -83,7 +83,7 @@ public static class VersionShower_Start
     // Postfix patch of VersionShower.Start to show MalumMenu version
     public static void Postfix(VersionShower __instance)
     {
-        if (CheatToggles.stealthMode) return;
+        if (CheatToggles.stealthMode || MalumMenu.isPanicked) return;
 
         if (MalumMenu.supportedAU.Contains(Application.version)) // Checks if Among Us version is supported
         {
