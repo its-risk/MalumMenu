@@ -626,6 +626,16 @@ public static class Utils
         var stamp = ModManager.Instance.ModStamp;
         if (stamp) stamp.enabled = false;
 
+        UnityEngine.Object.Destroy(MalumMenu.menuUI);
+
+        UnityEngine.Object.Destroy(MalumMenu.consoleUI);
+        UnityEngine.Object.Destroy(MalumMenu.rolesUI);
+        UnityEngine.Object.Destroy(MalumMenu.doorsUI);
+        UnityEngine.Object.Destroy(MalumMenu.tasksUI);
+        UnityEngine.Object.Destroy(MalumMenu.protectUI);
+
+        UnityEngine.Object.Destroy(MalumMenu.keybindListener);
+
         try { Harmony.UnpatchID(MalumMenu.Id); } catch { }
     }
 }
