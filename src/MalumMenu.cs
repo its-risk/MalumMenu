@@ -128,7 +128,7 @@ public partial class MalumMenu : BasePlugin
 
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, _) =>
         {
-            if (scene.name == "MainMenu")
+            if (scene.name == "MainMenu" && !(CheatToggles.stealthMode || isPanicked))
             {
                 // Warns about unsupported AU versions
                 if (!supportedAU.Contains(Application.version))
