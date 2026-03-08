@@ -9,6 +9,7 @@ using System.Reflection;
 using AmongUs.GameOptions;
 using BepInEx;
 using HarmonyLib;
+using UnityEngine.SceneManagement;
 using Sentry.Internal.Extensions;
 using System.Runtime.CompilerServices;
 using AmongUs.InnerNet.GameDataMessages;
@@ -625,6 +626,13 @@ public static class Utils
 
         var stamp = ModManager.Instance.ModStamp;
         if (stamp) stamp.enabled = false;
+
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name == "MainMenu")
+        {
+            SceneManager.LoadScene(scene.name);
+        }
 
         UnityEngine.Object.Destroy(MalumMenu.menuUI);
 
