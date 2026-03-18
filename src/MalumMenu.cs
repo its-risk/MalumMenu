@@ -29,6 +29,7 @@ public partial class MalumMenu : BasePlugin
     public static string malumVersion = "3.0.0";
     public static List<string> supportedAU = new List<string> { "2026.2.24", "2026.3.17" };
     public static bool isPanicked = false;
+    public static bool inStealthMode = false;
 
     public static ConfigEntry<string> menuKeybind;
     public static ConfigEntry<string> menuHtmlColor;
@@ -130,7 +131,7 @@ public partial class MalumMenu : BasePlugin
 
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, _) =>
         {
-            if (scene.name == "MainMenu" && !(CheatToggles.stealthMode || isPanicked))
+            if (scene.name == "MainMenu" && !(inStealthMode || isPanicked))
             {
                 // Warns about unsupported AU versions
                 if (!supportedAU.Contains(Application.version))

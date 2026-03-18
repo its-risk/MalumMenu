@@ -310,10 +310,11 @@ public class MenuUI : MonoBehaviour
             if (hue > 1f) hue -= 1f; // Loop hue back to 0 when it exceeds 1
         }
 
-        var stamp = ModManager.Instance.ModStamp;
-        if (stamp) stamp.enabled = !(CheatToggles.stealthMode || MalumMenu.isPanicked);
 
         if (CheatToggles.panic) Utils.Panic();
+
+        var stamp = ModManager.Instance.ModStamp;
+        if (stamp) stamp.enabled = !(MalumMenu.inStealthMode || MalumMenu.isPanicked);
 
         // Passive cheats are always on to avoid problems
         // CheatToggles.unlockFeatures = CheatToggles.freeCosmetics = CheatToggles.avoidBans = true;
