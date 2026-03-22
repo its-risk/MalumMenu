@@ -39,6 +39,7 @@
 
 | Mod Version| Among Us - Version | Link |
 |----------|-------------|-----------------|
+| v3.0.1 | 17.2.2 ( 2026.3.17 )<br>17.2.1 ( 2026.2.24 ) | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v3.0.1) |
 | v3.0.0 | 17.2.1 ( 2026.2.24 ) | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v3.0.0) |
 | v2.4.2 | 2024.9.4 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v2.4.2) |
 | v2.4.1 | 2024.8.13 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v2.4.1) |
@@ -50,10 +51,10 @@
 | v2.0.0 | 2023.11.28 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v2.0.0) |
 | v1.2.1 | 2023.11.28 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.2.1) |
 | v1.2.0 | 2023.11.28 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.2.0) |
-| v1.1.2 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.2) |
-| v1.1.1 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.1) |
-| v1.1.0 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.0) |
-| v1.0.0 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.0.0) |
+| v1.1.2 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.2) |
+| v1.1.1 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.1) |
+| v1.1.0 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.0) |
+| v1.0.0 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.0.0) |
 
 # ⬇️ Installation
 
@@ -132,7 +133,7 @@ Click to expand each topic
 
 <summary><h2>❗ I'm having issues installing MalumMenu</h2></summary>
 
-First of all, make sure you are running the most recent version of Among Us (`17.2.1` / `2026.2.24`) with the most recent version of MalumMenu (`v3.0.0`).
+First of all, make sure you are running the most recent version of Among Us (`17.2.2` / `2026.3.17` OR `17.2.1` / `2026.2.24`) with the most recent version of MalumMenu (`v3.0.1`).
 
 Also, check if your platform is officially supported:
 

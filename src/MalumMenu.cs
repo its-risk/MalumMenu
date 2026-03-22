@@ -26,7 +26,7 @@ public partial class MalumMenu : BasePlugin
     public static ProtectUI protectUI;
     public static CheatToggles.KeybindListener keybindListener;
 
-    public static string malumVersion = "3.0.0";
+    public static string malumVersion = "3.0.1";
     public static List<string> supportedAU = new List<string> { "2026.2.24", "2026.3.17" };
     public static bool isPanicked = false;
     public static bool inStealthMode = false;
