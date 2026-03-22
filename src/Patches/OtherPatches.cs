@@ -83,7 +83,7 @@ public static class VersionShower_Start
     // Postfix patch of VersionShower.Start to show MalumMenu version
     public static void Postfix(VersionShower __instance)
     {
-        if (CheatToggles.stealthMode) return;
+        if (MalumMenu.inStealthMode || MalumMenu.isPanicked) return;
 
         if (MalumMenu.supportedAU.Contains(Application.version)) // Checks if Among Us version is supported
         {
@@ -102,7 +102,7 @@ public static class PingTracker_Update
     // Postfix patch of PingTracker.Update to show MalumMenu authors and colored ping text
     public static void Postfix(PingTracker __instance)
     {
-        if (CheatToggles.stealthMode)
+        if (MalumMenu.inStealthMode)
         {
             __instance.text.alignment = TMPro.TextAlignmentOptions.TopLeft;
 

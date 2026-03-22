@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace MalumMenu;
 
@@ -9,7 +10,6 @@ public class MenuUI : MonoBehaviour
     public List<GroupInfo> groups = new List<GroupInfo>();
     private Rect windowRect = new(10, 10, 700, 550);
     public static bool isGUIActive = false;
-    public static bool isPanicked = false;
     public int selectedTab;
 
     // Styles
@@ -311,22 +311,22 @@ public class MenuUI : MonoBehaviour
             if (hue > 1f) hue -= 1f; // Loop hue back to 0 when it exceeds 1
         }
 
-        if (CheatToggles.stealthMode && ModManager.Instance.ModStamp && ModManager.Instance.ModStamp.enabled)
+        if (CheatToggles.stealthMode != MalumMenu.inStealthMode)
         {
-            ModManager.Instance.ModStamp.enabled = false;
-        }
-        else if (!CheatToggles.stealthMode && ModManager.Instance.ModStamp && !ModManager.Instance.ModStamp.enabled)
-        {
-            ModManager.Instance.ShowModStamp();
+            MalumMenu.inStealthMode = CheatToggles.stealthMode;
+
+            Scene scene = SceneManager.GetActiveScene();
+
+            if (scene.name == "MainMenu")
+            {
+                SceneManager.LoadScene(scene.name);
+            }
         }
 
-        if (CheatToggles.panic)
-        {
-            Utils.Panic();
-            isPanicked = true;
+        if (CheatToggles.panic) Utils.Panic();
 
-            CheatToggles.panic = false;
-        }
+        var stamp = ModManager.Instance.ModStamp;
+        if (stamp) stamp.enabled = !(MalumMenu.inStealthMode || MalumMenu.isPanicked);
 
         // Passive cheats are always on to avoid problems
         // CheatToggles.unlockFeatures = CheatToggles.freeCosmetics = CheatToggles.avoidBans = true;
@@ -361,8 +361,7 @@ public class MenuUI : MonoBehaviour
 
     public void OnGUI()
     {
-
-        if (!isGUIActive || isPanicked) return;
+        if (!isGUIActive || MalumMenu.isPanicked) return;
 
         InitStyles();
 

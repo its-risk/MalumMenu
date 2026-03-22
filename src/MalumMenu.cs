@@ -24,9 +24,12 @@ public partial class MalumMenu : BasePlugin
     public static DoorsUI doorsUI;
     public static TasksUI tasksUI;
     public static ProtectUI protectUI;
+    public static CheatToggles.KeybindListener keybindListener;
 
     public static string malumVersion = "3.0.0";
     public static List<string> supportedAU = new List<string> { "2026.2.24", "2026.3.17" };
+    public static bool isPanicked = false;
+    public static bool inStealthMode = false;
 
     public static ConfigEntry<string> menuKeybind;
     public static ConfigEntry<string> menuHtmlColor;
@@ -106,10 +109,11 @@ public partial class MalumMenu : BasePlugin
         consoleUI = AddComponent<ConsoleUI>();
         rolesUI = AddComponent<RolesUI>();
         doorsUI = AddComponent<DoorsUI>();
-        tasksUI = AddComponent <TasksUI>();
+        tasksUI = AddComponent<TasksUI>();
         protectUI = AddComponent<ProtectUI>();
 
-        AddComponent<CheatToggles.KeybindListener>().Plugin = this;
+        keybindListener = AddComponent<CheatToggles.KeybindListener>();
+        keybindListener.Plugin = this;
 
         // Disables Telemetry (haven't fully tested if it works, but according to Unity docs it should)
         if (noTelemetry.Value)
@@ -127,7 +131,7 @@ public partial class MalumMenu : BasePlugin
 
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, _) =>
         {
-            if (scene.name == "MainMenu")
+            if (scene.name == "MainMenu" && !(inStealthMode || isPanicked))
             {
                 // Warns about unsupported AU versions
                 if (!supportedAU.Contains(Application.version))
