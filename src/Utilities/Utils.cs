@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 using Sentry.Internal.Extensions;
 using System.Runtime.CompilerServices;
 using AmongUs.InnerNet.GameDataMessages;
+using Il2CppInterop.Runtime.Injection;
 
 namespace MalumMenu;
 
@@ -618,6 +619,26 @@ public static class Utils
         }
     }
 
+    public class PanicCleaner : MonoBehaviour
+    {
+        // Creates a PanicCleaner to unpatch Harmony
+        public static void Create()
+        {
+            ClassInjector.RegisterTypeInIl2Cpp<PanicCleaner>();
+            var go = new GameObject("MalumMenu_PanicCleaner");
+            go.hideFlags = HideFlags.HideAndDontSave;
+            go.AddComponent<PanicCleaner>();
+        }
+
+        // Unpatching Harmony in handled in the next frame after creation
+        // This allows some patches to run for a last time and finish properly
+        private void LateUpdate()
+        {
+            try { Harmony.UnpatchID(MalumMenu.Id); } catch { }
+            Destroy(gameObject);
+        }
+    }
+
     public static void Panic()
     {
         MalumMenu.isPanicked = true;
@@ -644,6 +665,6 @@ public static class Utils
 
         UnityEngine.Object.Destroy(MalumMenu.keybindListener);
 
-        try { Harmony.UnpatchID(MalumMenu.Id); } catch { }
+        PanicCleaner.Create();
     }
 }
