@@ -60,7 +60,12 @@ public static class TextBoxTMP_IsCharAllowed
         // If the user pasted text, read from clipboard. Otherwise use typed input
         var input = Utils.isPastingInput ? GUIUtility.systemCopyBuffer : Input.inputString;
 
-        if (input.Length == 0) return true;
+        // Allow all characters if there is no user input, as validation is not needed then
+        if (input.Length == 0)
+        {
+            __result = true;
+            return false;
+        }
 
         string currentText = __instance.text ?? string.Empty;
 
