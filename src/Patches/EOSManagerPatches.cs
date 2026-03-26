@@ -30,10 +30,7 @@ namespace MalumMenu;
 [HarmonyPatch(typeof(EOSManager), nameof(EOSManager.IsFreechatAllowed))]
 public static class EOSManager_IsFreechatAllowed
 {
-    /// <summary>
-    /// Prefix patch of EOSManager.IsFreechatAllowed to unlock freechat
-    /// </summary>
-    /// <param name="__result">Original return value of <c>IsFreechatAllowed</c>.</param>
+    // Prefix patch of EOSManager.IsFreechatAllowed to unlock freechat
     public static void Postfix(ref bool __result)
     {
         if (CheatToggles.unlockFeatures)

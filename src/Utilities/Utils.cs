@@ -9,15 +9,17 @@ using System.Reflection;
 using AmongUs.GameOptions;
 using BepInEx;
 using HarmonyLib;
-using Il2CppInterop.Runtime.Injection;
+using UnityEngine.SceneManagement;
 using Sentry.Internal.Extensions;
 using System.Runtime.CompilerServices;
 using AmongUs.InnerNet.GameDataMessages;
+using Il2CppInterop.Runtime.Injection;
 
 namespace MalumMenu;
 
 public static class Utils
 {
+    public static bool isPastingInput;
     public static ReferenceDataManager ReferenceDataManager = DestroyableSingleton<ReferenceDataManager>.Instance; // Useful for getting full lists of all the Among Us cosmetics IDs
     public static SabotageSystemType SabotageSystem => ShipStatus.Instance.Systems[SystemTypes.Sabotage].Cast<SabotageSystemType>();
     public static bool isShip => ShipStatus.Instance;
@@ -638,16 +640,36 @@ public static class Utils
         // This allows some patches to run for a last time and finish properly
         private void LateUpdate()
         {
-            try { Harmony.UnpatchID(MalumMenu.Id); }
-            catch {}
+            try { Harmony.UnpatchID(MalumMenu.Id); } catch { }
             Destroy(gameObject);
         }
     }
 
     public static void Panic()
     {
+        MalumMenu.isPanicked = true;
+
         CheatToggles.DisableAll();
-        ModManager.Instance.ModStamp.enabled = false;
+
+        var stamp = ModManager.Instance.ModStamp;
+        if (stamp) stamp.enabled = false;
+
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name == "MainMenu")
+        {
+            SceneManager.LoadScene(scene.name);
+        }
+
+        UnityEngine.Object.Destroy(MalumMenu.menuUI);
+
+        UnityEngine.Object.Destroy(MalumMenu.consoleUI);
+        UnityEngine.Object.Destroy(MalumMenu.rolesUI);
+        UnityEngine.Object.Destroy(MalumMenu.doorsUI);
+        UnityEngine.Object.Destroy(MalumMenu.tasksUI);
+        UnityEngine.Object.Destroy(MalumMenu.protectUI);
+
+        UnityEngine.Object.Destroy(MalumMenu.keybindListener);
 
         PanicCleaner.Create();
     }

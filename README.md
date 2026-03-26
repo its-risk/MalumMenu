@@ -39,6 +39,8 @@
 
 | Mod Version| Among Us - Version | Link |
 |----------|-------------|-----------------|
+| v3.0.2 | 17.2.2 ( 2026.3.17 )<br>17.2.1 ( 2026.2.24 ) | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v3.0.2) |
+| v3.0.1 | 17.2.2 ( 2026.3.17 )<br>17.2.1 ( 2026.2.24 ) | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v3.0.1) |
 | v3.0.0 | 17.2.1 ( 2026.2.24 ) | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v3.0.0) |
 | v2.4.2 | 2024.9.4 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v2.4.2) |
 | v2.4.1 | 2024.8.13 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v2.4.1) |
@@ -50,10 +52,10 @@
 | v2.0.0 | 2023.11.28 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v2.0.0) |
 | v1.2.1 | 2023.11.28 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.2.1) |
 | v1.2.0 | 2023.11.28 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.2.0) |
-| v1.1.2 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.2) |
-| v1.1.1 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.1) |
-| v1.1.0 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.0) |
-| v1.0.0 | 2023.7.12 & 2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.0.0) |
+| v1.1.2 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.2) |
+| v1.1.1 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.1) |
+| v1.1.0 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.1.0) |
+| v1.0.0 | 2023.7.12<br>2023.7.11 | [Download](https://github.com/scp222thj/MalumMenu/releases/tag/v1.0.0) |
 
 # ⬇️ Installation
 
@@ -69,7 +71,8 @@
     - **Steam:** Right-click Among Us in your Library → Click `Manage` → Click `Browse local files`.
     - **Epic Launcher:** Right-click Among Us in your Library → Click `Manage` → Click the folder icon in the `Installation` box.
     - **Itch.io:** Open the Itch.io app → Right-click Among Us in your Library → Click `Manage` → Click `Open folder in Explorer`.
-    - **Microsoft Store:** Open the location where Among Us is installed (usually under `C:\Program Files\WindowsApps\` or another default path depending on your installation).
+   - **Microsoft Store:** Open the folder where Windows apps are installed (typically `C:\Program Files\WindowsApps\`) by following the tutorial [here](https://youtu.be/qCeoEIy_vrw) → In File Explorer, use the search bar to search for `Among Us.exe` → Right-click the `Among Us.exe` result → Select `Open file location`.
+    - **Xbox App:** Right-click Among Us in your Library → Click `Manage` → Open the `FILES` tab → Click `BROWSE...` → Open the `Among Us` folder → Open the `Content` folder.
 
 4. Launch Among Us as you normally would. You should see a console window appear, installing the mod's requirements.
 
@@ -131,7 +134,7 @@ Click to expand each topic
 
 <summary><h2>❗ I'm having issues installing MalumMenu</h2></summary>
 
-First of all, make sure you are running the most recent version of Among Us (`17.2.1` / `2026.2.24`) with the most recent version of MalumMenu (`v3.0.0`).
+First of all, make sure you are running the most recent version of Among Us (`17.2.2` / `2026.3.17` OR `17.2.1` / `2026.2.24`) with the most recent version of MalumMenu (`v3.0.2`).
 
 Also, check if your platform is officially supported:
 

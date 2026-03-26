@@ -78,7 +78,11 @@ public struct CheatToggles
 
     // Chat
     public static bool alwaysChat;
-    public static bool chatJailbreak;
+    public static bool unlockCharacters;
+    public static bool bypassUrlBlock;
+    public static bool longerMessages;
+    public static bool unlockClipboard;
+    public static bool lowerRateLimits;
 
     // Console
     public static bool showConsole;
@@ -270,7 +274,7 @@ public struct CheatToggles
 
         public void Update()
         {
-            if (MenuUI.isPanicked) return;
+            if (MalumMenu.isPanicked) return;
 
             // Keybinds aren't triggered from typing in the chat
             if (HudManager.InstanceExists && HudManager.Instance.Chat && HudManager.Instance.Chat.IsOpenOrOpening) return;

@@ -67,47 +67,53 @@ public static class ChatController_AddChat
     }
 }
 
-[HarmonyPatch(typeof(ChatBubble), nameof(ChatBubble.SetName))]
-public static class ChatBubble_SetName
-{
-    public static void Postfix(ChatBubble __instance)
-	{
-        MalumESP.ChatNametags(__instance);
-    }
-}
-
-
 [HarmonyPatch(typeof(ChatController), nameof(ChatController.Update))]
 public static class ChatController_Update
 {
-    // Postfix patch of FreeChatInputField.OnFieldChanged to unlock extra chat capabilities
+    // Postfix patch of ChatController.Update to unlock longer message length
     public static void Postfix(ChatController __instance)
     {
-        __instance.freeChatField.textArea.allowAllCharacters = CheatToggles.chatJailbreak; // Not really used by the game's code, but I include it anyway
-        __instance.freeChatField.textArea.AllowSymbols = true; // Allow sending certain symbols
-        __instance.freeChatField.textArea.AllowEmail = CheatToggles.chatJailbreak; // Allow sending email addresses when chatJailbreak is enabled
+        //__instance.freeChatField.textArea.allowAllCharacters = CheatToggles.chatJailbreak; // Not really used by the game's code, but I include it anyway
+        //__instance.freeChatField.textArea.AllowSymbols = true; // Allow sending certain symbols
+        //__instance.freeChatField.textArea.AllowEmail = CheatToggles.chatJailbreak; // Allow sending email addresses when chatJailbreak is enabled
         //__instance.freeChatField.textArea.AllowPaste = CheatToggles.chatJailbreak; // Allow pasting from clipboard in chat when chatJailbreak is enabled
 
-        if (CheatToggles.chatJailbreak)
+        if (CheatToggles.longerMessages)
 		{
-            __instance.freeChatField.textArea.characterLimit = 119; // Longer message length when chatJailbreak is enabled
+			// Increasing the maximum length by 20 characters still avoids anticheat kicks
+            __instance.freeChatField.textArea.characterLimit = 120;
         }
 		else
 		{
             __instance.freeChatField.textArea.characterLimit = 100;
         }
+    }
+}
 
+[HarmonyPatch(typeof(ChatController), nameof(ChatController.SendChat))]
+public static class ChatController_SendChat
+{
+    // Postfix patch of ChatController.SendChat to unlock lower chat rate limits
+    public static void Postfix(ChatController __instance)
+    {
+        if (!CheatToggles.lowerRateLimits) return;
+
+		if (__instance.timeSinceLastMessage == 0f)
+		{
+			// Decreasing rate limit by 1 sec max still avoids anticheat kicks
+			__instance.timeSinceLastMessage += 1f;
+		}
     }
 }
 
 [HarmonyPatch(typeof(ChatController), nameof(ChatController.SendFreeChat))]
 public static class ChatController_SendFreeChat
 {
-    // Prefix patch of ChatController.SendFreeChat to unlock extra chat capabilities
+    // Prefix patch of ChatController.SendFreeChat to allow sending URLs without being censored
     public static bool Prefix(ChatController __instance)
     {
-		// Only works if CheatSettings.chatJailbreak is enabled
-        if (!CheatToggles.chatJailbreak) return true;
+		// Only works if CheatSettings.bypassUrlBlock is enabled
+        if (!CheatToggles.bypassUrlBlock) return true;
 
         string text = __instance.freeChatField.Text;
 

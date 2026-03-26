@@ -24,9 +24,12 @@ public partial class MalumMenu : BasePlugin
     public static DoorsUI doorsUI;
     public static TasksUI tasksUI;
     public static ProtectUI protectUI;
+    public static CheatToggles.KeybindListener keybindListener;
 
-    public static string malumVersion = "3.0.0";
-    public static List<string> supportedAU = new List<string> { "2026.2.24" };
+    public static string malumVersion = "3.0.2";
+    public static List<string> supportedAU = new List<string> { "2026.2.24", "2026.3.17" };
+    public static bool isPanicked = false;
+    public static bool inStealthMode = false;
 
     public static ConfigEntry<string> menuKeybind;
     public static ConfigEntry<string> menuHtmlColor;
@@ -37,6 +40,7 @@ public partial class MalumMenu : BasePlugin
     public static ConfigEntry<bool> noTelemetry;
     public static ConfigEntry<string> guestFriendCode;
     public static ConfigEntry<bool> guestMode;
+    public static ConfigEntry<bool> autoLoadProfile;
 
     public override void Load()
     {
@@ -58,6 +62,11 @@ public partial class MalumMenu : BasePlugin
                                 true,
                                 "When enabled, the MalumMenu GUI will always be opened at the current mouse position");
 
+        autoLoadProfile = Config.Bind("MalumMenu.Profile",
+                                "AutoLoadProfile",
+                                false,
+                                "When enabled, your saved keybind and toggle profile will be automatically loaded at game startup");
+
         // GuestMode config settings are commented out as the cheats are broken in latest updates
 
         // guestMode = Config.Bind("MalumMenu.GuestMode",
@@ -73,7 +82,7 @@ public partial class MalumMenu : BasePlugin
         spoofLevel = Config.Bind("MalumMenu.Spoofing",
                                 "Level",
                                 "",
-                                "A custom player level to display to others in online games to hide your actual platform. IMPORTANT: Custom levels can only be within 0 and 4294967295. Decimal numbers will not work");
+                                "A custom player level to display to others in online games to hide your actual platform. IMPORTANT: Custom levels can only be within 1 and 100001. Decimal numbers will not work");
 
         spoofPlatform = Config.Bind("MalumMenu.Spoofing",
                                 "Platform",
@@ -100,10 +109,11 @@ public partial class MalumMenu : BasePlugin
         consoleUI = AddComponent<ConsoleUI>();
         rolesUI = AddComponent<RolesUI>();
         doorsUI = AddComponent<DoorsUI>();
-        tasksUI = AddComponent <TasksUI>();
+        tasksUI = AddComponent<TasksUI>();
         protectUI = AddComponent<ProtectUI>();
 
-        AddComponent<CheatToggles.KeybindListener>().Plugin = this;
+        keybindListener = AddComponent<CheatToggles.KeybindListener>();
+        keybindListener.Plugin = this;
 
         // Disables Telemetry (haven't fully tested if it works, but according to Unity docs it should)
         if (noTelemetry.Value)
@@ -113,9 +123,15 @@ public partial class MalumMenu : BasePlugin
             PerformanceReporting.enabled = false;
         }
 
+        // Load profile on start
+        if (autoLoadProfile.Value)
+        {
+            CheatToggles.LoadTogglesFromProfile();
+        }
+
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, _) =>
         {
-            if (scene.name == "MainMenu")
+            if (scene.name == "MainMenu" && !(inStealthMode || isPanicked))
             {
                 // Warns about unsupported AU versions
                 if (!supportedAU.Contains(Application.version))
