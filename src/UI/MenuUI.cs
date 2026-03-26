@@ -516,34 +516,4 @@ public class MenuUI : MonoBehaviour
             }
         }
     }
-
-    // Get window color for menu UI
-    public static Color GetWindowColor(bool rgb)
-    {
-        Color windowCol = Color.white;
-        if (rgb)
-        {
-            windowCol = Color.HSVToRGB(MenuUI.hue, 1f, 1f); // Set background color based on hue
-        }
-        else
-        {
-            var configHtmlColor = MalumMenu.menuHtmlColor.Value;
-
-            if (!ColorUtility.TryParseHtmlString(configHtmlColor, out var uiColor))
-            {
-                if (!configHtmlColor.StartsWith("#"))
-                {
-                    if (ColorUtility.TryParseHtmlString("#" + configHtmlColor, out uiColor))
-                    {
-                        windowCol = uiColor;
-                    }
-                }
-            }
-            else
-            {
-                windowCol = uiColor;
-            }
-        }
-        return windowCol;
-    }
 }
